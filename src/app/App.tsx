@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from 'react'
 import './App.css'
 import {TodolistsList} from 'features/TodolistsList/TodolistsList'
-import {ErrorSnackbar} from 'components/ErrorSnackbar/ErrorSnackbar'
+import {ErrorSnackbar} from 'common/components/ErrorSnackbar/ErrorSnackbar'
 import {useSelector} from 'react-redux'
 import {AppRootStateType} from './store'
 import {initializeAppTC, RequestStatusType} from './app-reducer'
@@ -20,15 +20,16 @@ import {
 } from '@mui/material';
 import {Menu} from '@mui/icons-material'
 import {selectIsLoggedIn} from "features/auth/auth.selectors";
-import {useAppDispatch} from "hooks/useAppDispatch";
+import {useAppDispatch} from "common/hooks/useAppDispatch";
+import {selectIsInitialized, selectStatus} from "app/app.selectors";
 
 type PropsType = {
     demo?: boolean
 }
 
 function App({demo = false}: PropsType) {
-    const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
-    const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
+    const status = useSelector(selectStatus)
+    const isInitialized = useSelector(selectIsInitialized)
     const isLoggedIn = useSelector(selectIsLoggedIn)
     const dispatch = useAppDispatch()
 
