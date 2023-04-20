@@ -1,7 +1,7 @@
 import {
     FilterValuesType, todoActions,
     TodolistDomainType,
-    todolistsReducer
+    todolistsReducer, todosThunks
 } from './todolists-reducer'
 import {v1} from 'uuid'
 
@@ -22,7 +22,7 @@ beforeEach(() => {
 })
 
 test('correct todolist should be removed', () => {
-    const endState = todolistsReducer(startState, todoActions.removeTodolist({id: todolistId1}))
+    const endState = todolistsReducer(startState, todosThunks.removeTodo.fulfilled({todolistId: todolistId1},'requstId',todolistId1))
 
     expect(endState.length).toBe(1)
     expect(endState[0].id).toBe(todolistId2)
