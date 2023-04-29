@@ -2,18 +2,17 @@ import React from 'react'
 import {FormikHelpers, useFormik} from 'formik'
 import {useSelector} from 'react-redux'
 import {Navigate} from 'react-router-dom'
-import {useAppDispatch} from 'common/hooks/useAppDispatch';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@mui/material'
 import {selectIsLoggedIn} from "features/auth/auth.selectors";
 import {authThunks} from "features/auth/auth.reducer";
 import {LoginParamsType} from "features/auth/auth.api";
 import {ResponseType} from "common/types";
+import {useActions} from "common/hooks";
 
 export const Login = () => {
-    const dispatch = useAppDispatch()
     const isLoggedIn = useSelector(selectIsLoggedIn);
-    const errors: ErrorsType = {};
-
+    const errors: FormikErrorType = {};
+    const {login} = useActions(authThunks)
     const formik = useFormik({
         validate: (values) => {
             if (!values.email) {
@@ -23,7 +22,10 @@ export const Login = () => {
                 errors.email = "Invalid email address";
             }
             if (!values.password) {
-                errors.email = "Password is  Required";
+                errors.password = "Password is  Required";
+            }
+            if (values.password.length < 3) {
+                errors.password = "Password must be more than 3 characters...";
             }
             return errors
 
@@ -35,7 +37,8 @@ export const Login = () => {
         },
 
         onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
-            dispatch(authThunks.login(values))
+            //dispatch(authThunks.login(values))
+            login(values)
                 .unwrap()
                 .catch((reason: ResponseType) => {
                     const {fieldsErrors} = reason
@@ -84,6 +87,7 @@ export const Login = () => {
                             label="Password"
                             margin="normal"
                             {...formik.getFieldProps("password")}
+
                         />
                         {formik.touched.password && formik.errors.password && (
                             <div style={{color: "red"}}>{formik.errors.password}</div>
@@ -103,8 +107,4 @@ export const Login = () => {
     </Grid>
 }
 
-type ErrorsType = {
-    email?: string;
-    password?: string;
-    confirmPassword?: string;
-};
+type FormikErrorType = Partial<Omit<LoginParamsType, 'captcha'>>
