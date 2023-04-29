@@ -3,11 +3,9 @@ import './App.css'
 import {TodolistsList} from 'features/TodolistsList/TodolistsList'
 import {ErrorSnackbar} from 'common/components/ErrorSnackbar/ErrorSnackbar'
 import {useSelector} from 'react-redux'
-import {AppRootStateType} from './store'
-import {initializeAppTC, RequestStatusType} from './app-reducer'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import {Login} from 'features/auth/Login'
-import {logoutTC} from 'features/auth/auth.reducer'
+
 import {
     AppBar,
     Button,
@@ -20,26 +18,22 @@ import {
 } from '@mui/material';
 import {Menu} from '@mui/icons-material'
 import {selectIsLoggedIn} from "features/auth/auth.selectors";
-import {useAppDispatch} from "common/hooks/useAppDispatch";
 import {selectIsInitialized, selectStatus} from "app/app.selectors";
+import {authThunks} from "features/auth/auth.reducer";
+import {useActions} from "common/hooks";
 
-type PropsType = {
-    demo?: boolean
-}
-
-function App({demo = false}: PropsType) {
+function App() {
     const status = useSelector(selectStatus)
     const isInitialized = useSelector(selectIsInitialized)
     const isLoggedIn = useSelector(selectIsLoggedIn)
-    const dispatch = useAppDispatch()
+
+    const {initializeApp, logout} = useActions(authThunks)
 
     useEffect(() => {
-        dispatch(initializeAppTC())
+        initializeApp()
     }, [])
 
-    const logoutHandler = useCallback(() => {
-        dispatch(logoutTC())
-    }, [])
+    const logoutHandler = () => logout()
 
     if (!isInitialized) {
         return <div
@@ -66,7 +60,7 @@ function App({demo = false}: PropsType) {
                 </AppBar>
                 <Container fixed>
                     <Routes>
-                        <Route path={'/'} element={<TodolistsList demo={demo}/>}/>
+                        <Route path={'/'} element={<TodolistsList/>}/>
                         <Route path={'/login'} element={<Login/>}/>
                     </Routes>
                 </Container>

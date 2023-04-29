@@ -1,4 +1,4 @@
-import {tasksActions, tasksReducer, TasksStateType, tasksThunks} from './tasks-reducer'
+import {tasksReducer, TasksStateType, tasksThunks} from './tasks-reducer'
 
 import {todoActions, todosThunks} from "features/TodolistsList/todolists-reducer";
 import {TaskPriorities, TaskStatuses} from "common/constants/constants";
