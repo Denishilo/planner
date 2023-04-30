@@ -1,30 +1,30 @@
-import {instance} from "common/api/common.api";
-import {ResponseType} from 'common/types/common.types'
+import { instance } from "common/api/common.api";
+import { ResponseType } from "common/types/common.types";
 
 export const todolistsApi = {
-    getTodolists() {
-        return instance.get<TodolistType[]>('todo-lists');
-    },
-    createTodolist(title: string) {
-        return instance.post<ResponseType<{ item: TodolistType }>>('todo-lists', {title: title});
-    },
-    deleteTodolist(id: string) {
-        return instance.delete<ResponseType>(`todo-lists/${id}`);
-    },
-    updateTodolist(id: string, title: string) {
-        return instance.put<ResponseType>(`todo-lists/${id}`, {title: title});
-    },
-}
+  getTodolists() {
+    return instance.get<TodolistType[]>("todo-lists");
+  },
+  createTodolist(title: string) {
+    return instance.post<ResponseType<{ item: TodolistType }>>("todo-lists", { title: title });
+  },
+  deleteTodolist(id: string) {
+    return instance.delete<ResponseType>(`todo-lists/${id}`);
+  },
+  updateTodolist(id: string, title: string) {
+    return instance.put<ResponseType>(`todo-lists/${id}`, { title: title });
+  },
+};
 ///////////// types ///////////////
 
 export type TodolistType = {
-    id: string
-    title: string
-    addedDate: string
-    order: number
-}
+  id: string;
+  title: string;
+  addedDate: string;
+  order: number;
+};
 
 export type ChangeTodoTitleArgType = {
-    id: string,
-    title: string
-}
+  id: string;
+  title: string;
+};

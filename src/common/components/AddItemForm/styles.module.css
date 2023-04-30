@@ -1,0 +1,5 @@
+.textField {
+  width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
