@@ -123,7 +123,8 @@ const slice = createSlice({
 export const tasksReducer = slice.reducer;
 export const tasksThunks = { fetchTasks, addTask, updateTask, removeTask };
 
-// types
+/////////////// types ///////////////
+
 export type UpdateDomainTaskModelType = {
   title?: string;
   description?: string;

@@ -17,6 +17,7 @@ export const tasksApi = {
     return instance.put<ResponseType<TaskType>>(`todo-lists/${todolistId}/tasks/${taskId}`, model);
   },
 };
+/////////////// types /////////////
 
 export type TaskType = {
   description: string;
