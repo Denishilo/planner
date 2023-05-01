@@ -1,11 +1,11 @@
-import { AppBar, Button, IconButton, LinearProgress, Toolbar, Typography } from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import { AppBar, Button, LinearProgress, Toolbar, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "features/auth/auth.selectors";
 import { selectStatus } from "app/app.selectors";
 import { useActions } from "common/hooks";
 import { authThunks } from "features/auth/auth.reducer";
+import s from "./style.module.css";
 
 export const Header = () => {
   const status = useSelector(selectStatus);
@@ -15,11 +15,8 @@ export const Header = () => {
 
   return (
     <AppBar position="static">
-      <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="menu">
-          <Menu />
-        </IconButton>
-        <Typography variant="h6">News</Typography>
+      <Toolbar className={s.toolWrapper}>
+        <Typography variant="h6">Planner</Typography>
         {isLoggedIn && (
           <Button color="inherit" onClick={logoutHandler}>
             Log out
