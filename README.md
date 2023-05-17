@@ -1,5 +1,5 @@
 
-### Task control application This project was created with Create React App.
+### Tasks control application. This project was created with Create React App.
 
 - TypeScript
 - React
