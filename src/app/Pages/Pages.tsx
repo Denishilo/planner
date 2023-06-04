@@ -8,8 +8,9 @@ export const Pages = () => {
   return (
     <Container fixed>
       <Routes>
-        <Route path={"/"} element={<TodolistsList />} />
+        <Route path={"/"} element={<Login />} />
         <Route path={"/login"} element={<Login />} />
+        <Route path={"/todolists"} element={<TodolistsList />} />
       </Routes>
     </Container>
   );
